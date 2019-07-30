@@ -4,3 +4,9 @@ const db = require('./db')
 require('./models')
 
 module.exports = db
+
+//  Schema:
+//      User
+//          ClimbingSession
+//              Route
+//      Location
