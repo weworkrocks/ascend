@@ -90,7 +90,7 @@ const Sample = {
         },
         {
           difficulty: '5-9',
-          score: 24
+          score: 31
         }
       ]
     }
