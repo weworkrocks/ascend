@@ -70,6 +70,29 @@ const Sample = {
           score: 24
         }
       ]
+    },
+    {
+      userId: 1,
+      locationId: 1,
+      date: '01/28/2019',
+      climbs: [
+        {
+          difficulty: '5-6',
+          score: 13
+        },
+        {
+          difficulty: '5-8',
+          score: 24
+        },
+        {
+          difficulty: '5-8',
+          score: 24
+        },
+        {
+          difficulty: '5-9',
+          score: 24
+        }
+      ]
     }
   ]
 }
