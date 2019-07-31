@@ -7,10 +7,18 @@ import {connect} from 'react-redux'
  */
 export const UserHome = props => {
   const {email} = props
-
+  console.log(props)
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <div>
+        <h2>Welcome, {email}</h2>
+      </div>
+      <div>
+        <h3>Click Summary of Last Climb</h3>
+      </div>
+      <div>
+        <h3>Click Summary of Something Else</h3>
+      </div>
     </div>
   )
 }
