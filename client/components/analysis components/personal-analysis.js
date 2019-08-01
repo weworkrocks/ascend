@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import {PersonalProgressChartWithToolTip} from '../analysis components/line-graph'
+import {
+  PersonalProgressChartWithToolTip,
+  PersonalProgressDataParser
+} from '../analysis components/line-graph'
 import {SampleUtility} from '../../store/sample'
 
 const testData = {
@@ -33,6 +36,7 @@ const testData = {
 
 export default class PersonalAnalysis extends Component {
   render() {
+    console.log(SampleUtility.getUserClimbingHistory(this.props.userId))
     return <PersonalProgressChartWithToolTip data={testData} />
   }
 }
