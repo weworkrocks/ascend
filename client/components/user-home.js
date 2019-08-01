@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import PersonalAnalysis from './analysis components/personal-analysis'
 import {connect} from 'react-redux'
 
 /**
@@ -11,6 +12,7 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <PersonalAnalysis />
     </div>
   )
 }
