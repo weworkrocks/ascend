@@ -146,6 +146,10 @@ export const Sample = {
 }
 
 export const SampleUtility = {
+  getAllClimbingHistory: () => {
+    return Sample.climbingSessions.map(climbSesh => climbSesh)
+  },
+
   getUserClimbingHistory: userId => {
     return Sample.climbingSessions.filter(
       climbSesh => climbSesh.userId === userId

@@ -19,20 +19,14 @@ export const LineChart = props => {
       margin={{top: 50, bottom: 50, left: 50, right: 50}}
       width="700"
       shouldShowLoadingState={!props.data}
-      // colorSchema=
       {...props}
     />
   )
 }
 
-export const PersonalProgressChartWithToolTip = ({data}) => {
+export const LineChartWithToolTip = ({data, title}) => {
   return (
-    <Tooltip
-      data={data}
-      render={LineChart}
-      title="Personal Progress"
-      topicLabel="topics"
-    />
+    <Tooltip data={data} render={LineChart} title={title} topicLabel="topics" />
   )
 }
 
@@ -49,7 +43,7 @@ export const PersonalProgressDataParser = climbingSessions => {
   return {
     dataByTopic: [
       {
-        topicName: 'Climbing',
+        topicName: 'MyClimbs',
         topic: 'Climbing Power',
         dates: csFormatted
       }
