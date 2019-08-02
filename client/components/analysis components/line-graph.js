@@ -50,3 +50,7 @@ export const PersonalProgressDataParser = climbingSessions => {
     ]
   }
 }
+export const FriendsProgressDataParser = (climbingSessions, users) => {
+  const data = {dataByTopic: []}
+  const csFormatted = climbingSessions.map(session => {})
+}

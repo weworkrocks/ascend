@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const initialState = {}
+const initialState = []
 
 const GET_ALL_USERS = 'GET_ALL_USERS'
 

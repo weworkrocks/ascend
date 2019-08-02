@@ -8,7 +8,17 @@ class FriendsAnalysis extends Component {
   }
 
   render() {
-    console.log(this.props.users)
+    const users = this.props.users
+      ? this.props.users.map(user => {
+          const {id, email} = user
+          return {
+            id,
+            email,
+            key: null
+          }
+        })
+      : []
+    console.log(users)
     return <div>HELLO FRIENDS</div>
   }
 }
