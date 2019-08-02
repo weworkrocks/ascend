@@ -79,8 +79,7 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
         return user
       })
     } else {
-      let currentClimberData = data.dataByTopic[climber.key]
-      currentClimberData.dates.push({
+      data.dataByTopic[climber.key].dates.push({
         date: session.date,
         value: score
       })
