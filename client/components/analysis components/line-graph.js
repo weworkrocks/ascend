@@ -2,16 +2,6 @@ import React from 'react'
 import {Line, Tooltip} from 'britecharts-react'
 import {colors} from 'britecharts'
 
-const ToolTipChildDataParser = prevData => {
-  return {
-    data: prevData.data.map(elem => ({
-      name: elem.name,
-      date: elem.date,
-      value: elem.value
-    }))
-  }
-}
-
 export const LineChart = props => {
   return (
     <Line
@@ -33,21 +23,21 @@ export const LineChartWithToolTip = ({data, title}) => {
 }
 
 export const PersonalProgressDataParser = climbingSessions => {
-  const csFormatted = climbingSessions.map(session => {
-    const score = session.climbs.reduce((accum, climb) => {
-      return accum + climb.score
-    }, 0)
-    return {
-      date: session.date,
-      value: score
-    }
-  })
   return {
     dataByTopic: [
       {
         topicName: 'MyClimbs',
         topic: 'Climbing Power',
-        dates: csFormatted
+        dates: climbingSessions.map(session => {
+          const score = session.climbs.reduce((accum, climb) => {
+            return accum + climb.score
+          }, 0)
+
+          return {
+            date: session.date,
+            value: score
+          }
+        })
       }
     ]
   }
