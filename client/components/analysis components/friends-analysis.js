@@ -24,7 +24,8 @@ class FriendsAnalysis extends Component {
     })
     const data = FriendsProgressDataParser(
       SampleUtility.getAllClimbingHistory(),
-      users
+      users,
+      ['Lester']
     )
     return (
       <div>

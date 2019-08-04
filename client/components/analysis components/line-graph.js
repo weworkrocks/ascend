@@ -2,7 +2,20 @@ import React from 'react'
 import {Line, Tooltip} from 'britecharts-react'
 import {colors} from 'britecharts'
 
-export const LineChart = props => {
+export const LineChart = ({data, title}) => {
+  return (
+    <Line
+      data={data}
+      lineCurve="basis"
+      margin={{top: 50, bottom: 50, left: 50, right: 50}}
+      width="700"
+      shouldShowLoadingState={!data}
+      colorSchema={colors.colorSchemas.Britecharts}
+    />
+  )
+}
+
+const LineChartChild = props => {
   return (
     <Line
       data={props.data}
@@ -18,7 +31,12 @@ export const LineChart = props => {
 
 export const LineChartWithToolTip = ({data, title}) => {
   return (
-    <Tooltip data={data} render={LineChart} title={title} topicLabel="topics" />
+    <Tooltip
+      data={data}
+      render={LineChartChild}
+      title={title}
+      topicLabel="topics"
+    />
   )
 }
 
@@ -42,38 +60,49 @@ export const PersonalProgressDataParser = climbingSessions => {
     ]
   }
 }
-export const FriendsProgressDataParser = (climbingSessions, users) => {
+export const FriendsProgressDataParser = (
+  climbingSessions,
+  users,
+  ignoreList = []
+) => {
   const data = {dataByTopic: []}
-  climbingSessions.map(session => {
-    const climber = users.find(user => user.id === session.userId)
-    const score = session.climbs.reduce((accum, climb) => {
-      return accum + climb.score
-    }, 0)
+  climbingSessions
+    .filter(
+      session =>
+        ignoreList.indexOf(
+          users.find(user => user.id === session.userId).email
+        ) === -1
+    )
+    .map(session => {
+      const climber = users.find(user => user.id === session.userId)
+      const score = session.climbs.reduce((accum, climb) => {
+        return accum + climb.score
+      }, 0)
 
-    if (climber.key === null) {
-      data.dataByTopic.push({
-        topicName: climber.email,
-        topic: climber.email,
-        dates: [
-          {
-            date: session.date,
-            value: score
+      if (climber.key === null) {
+        data.dataByTopic.push({
+          topicName: climber.email,
+          topic: climber.email,
+          dates: [
+            {
+              date: session.date,
+              value: score
+            }
+          ]
+        })
+
+        users = users.map(user => {
+          if (user.id === session.userId) {
+            user.key = data.dataByTopic.length - 1
           }
-        ]
-      })
-
-      users = users.map(user => {
-        if (user.id === session.userId) {
-          user.key = data.dataByTopic.length - 1
-        }
-        return user
-      })
-    } else {
-      data.dataByTopic[climber.key].dates.push({
-        date: session.date,
-        value: score
-      })
-    }
-  })
+          return user
+        })
+      } else {
+        data.dataByTopic[climber.key].dates.push({
+          date: session.date,
+          value: score
+        })
+      }
+    })
   return data
 }
