@@ -25,10 +25,11 @@ class FriendsAnalysis extends Component {
     const data = FriendsProgressDataParser(
       SampleUtility.getAllClimbingHistory(),
       users,
-      ['Lester']
+      ['Lester' /* Score Not Me. lol */]
     )
     return (
       <div>
+        <h3>Friends Analysis</h3>
         <LineChartWithToolTip data={data} title="Friends Progress" />
       </div>
     )

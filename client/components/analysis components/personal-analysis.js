@@ -12,6 +12,7 @@ export default class PersonalAnalysis extends Component {
     )
     return (
       <div>
+        <h3>Personal Analysis</h3>
         <LineChartWithToolTip data={data} title="Personal Progress" />
       </div>
     )

@@ -2,7 +2,7 @@ import React from 'react'
 import {Line, Tooltip} from 'britecharts-react'
 import {colors} from 'britecharts'
 
-export const LineChart = ({data, title}) => {
+export const LineChart = ({data}) => {
   return (
     <Line
       data={data}
