@@ -1,17 +1,21 @@
 import React from 'react'
 import {Line, Tooltip} from 'britecharts-react'
+import {colors} from 'britecharts'
 
-const ToolTipChildDataParser = prevData => {
-  return {
-    data: prevData.data.map(elem => ({
-      name: elem.name,
-      date: elem.date,
-      value: elem.value
-    }))
-  }
+export const LineChart = ({data}) => {
+  return (
+    <Line
+      data={data}
+      lineCurve="basis"
+      margin={{top: 50, bottom: 50, left: 50, right: 50}}
+      width="700"
+      shouldShowLoadingState={!data}
+      colorSchema={colors.colorSchemas.Britecharts}
+    />
+  )
 }
 
-export const LineChart = props => {
+const LineChartChild = props => {
   return (
     <Line
       data={props.data}
@@ -19,40 +23,86 @@ export const LineChart = props => {
       margin={{top: 50, bottom: 50, left: 50, right: 50}}
       width="700"
       shouldShowLoadingState={!props.data}
-      // colorSchema=
+      colorSchema={colors.colorSchemas.Britecharts}
       {...props}
     />
   )
 }
 
-export const PersonalProgressChartWithToolTip = ({data}) => {
+export const LineChartWithToolTip = ({data, title}) => {
   return (
     <Tooltip
       data={data}
-      render={LineChart}
-      title="Personal Progress"
+      render={LineChartChild}
+      title={title}
       topicLabel="topics"
     />
   )
 }
 
 export const PersonalProgressDataParser = climbingSessions => {
-  const csFormatted = climbingSessions.map(session => {
-    const score = session.climbs.reduce((accum, climb) => {
-      return accum + climb.score
-    }, 0)
-    return {
-      date: session.date,
-      value: score
-    }
-  })
   return {
     dataByTopic: [
       {
-        topicName: 'Climbing',
+        topicName: 'MyClimbs',
         topic: 'Climbing Power',
-        dates: csFormatted
+        dates: climbingSessions.map(session => {
+          const score = session.climbs.reduce((accum, climb) => {
+            return accum + climb.score
+          }, 0)
+
+          return {
+            date: session.date,
+            value: score
+          }
+        })
       }
     ]
   }
+}
+export const FriendsProgressDataParser = (
+  climbingSessions,
+  users,
+  ignoreList = []
+) => {
+  const data = {dataByTopic: []}
+  climbingSessions
+    .filter(
+      session =>
+        ignoreList.indexOf(
+          users.find(user => user.id === session.userId).email
+        ) === -1
+    )
+    .map(session => {
+      const climber = users.find(user => user.id === session.userId)
+      const score = session.climbs.reduce((accum, climb) => {
+        return accum + climb.score
+      }, 0)
+
+      if (climber.key === null) {
+        data.dataByTopic.push({
+          topicName: climber.email,
+          topic: climber.email,
+          dates: [
+            {
+              date: session.date,
+              value: score
+            }
+          ]
+        })
+
+        users = users.map(user => {
+          if (user.id === session.userId) {
+            user.key = data.dataByTopic.length - 1
+          }
+          return user
+        })
+      } else {
+        data.dataByTopic[climber.key].dates.push({
+          date: session.date,
+          value: score
+        })
+      }
+    })
+  return data
 }
