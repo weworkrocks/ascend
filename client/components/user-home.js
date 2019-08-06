@@ -12,7 +12,7 @@ const {getUserMainStats} = SampleUtility
  */
 export const UserHome = props => {
   const {email, userId} = props
-  console.log('func return - - - - -> ', getUserMainStats(2))
+  console.log('func return - - - - -> ', getUserMainStats(userId))
   return (
     <div>
       <h3>Welcome, {email}</h3>

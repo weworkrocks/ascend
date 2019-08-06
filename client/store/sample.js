@@ -1284,6 +1284,7 @@ export const SampleUtility = {
 
   getUserMainStats: userId => {
     let userClimbs = SampleUtility.getUserClimbingHistory(userId)
+    console.log(userClimbs)
     let data = {
       totalScore: 0,
       totalSessions: 0,
@@ -1292,10 +1293,13 @@ export const SampleUtility = {
       }
     }
     userClimbs.reduce((climbSeshAccum, climbSesh, i) => {
-      climbSeshAccum.totalScore += SampleUtility.getClimbingSessionTotalScore(
-        climbSesh
-      )
+      let sessionScore = SampleUtility.getClimbingSessionTotalScore(climbSesh)
+      climbSeshAccum.totalScore += sessionScore
       climbSeshAccum.totalSessions++
+      if (i >= userClimbs.length - 3) {
+        data.previousThree.totalScore += sessionScore
+        console.log('recorded to last three -->', sessionScore)
+      }
       return climbSeshAccum
     }, data)
     return data
