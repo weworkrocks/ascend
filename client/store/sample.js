@@ -2,15 +2,28 @@ export const Sample = {
   locations: [
     {
       id: 1,
-      name: 'LIC Cliffs'
+      name: 'LIC Cliffs',
+      address: '11-11 44th Dr., Long Island City, NY 11101'
     },
     {
       id: 2,
-      name: 'Brooklyn Boulders Gowanus'
+      name: 'Brooklyn Boulders Gowanus',
+      address: '575 Degraw St., Brooklyn, NY 11217'
     },
     {
       id: 3,
-      name: 'MPHC Climbing Gym'
+      name: 'Brooklyn Boulders Queensbridge',
+      address: '23-10 41st Ave., Long Island City, NY 11101'
+    },
+    {
+      id: 4,
+      name: 'Dumbo Bouldering',
+      address: '99 Plymouth St., Brooklyn, NY 11201'
+    },
+    {
+      id: 5,
+      name: 'MPHC Climbing Gym',
+      address: '482 W 43rd St., New York, NY 10036'
     }
   ],
   climbingSessions: [
