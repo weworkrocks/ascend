@@ -9,8 +9,8 @@ export const BarChart = ({data}) => {
         data={data}
         margin={{top: 50, bottom: 50, left: 50, right: 50}}
         width="700"
-        colorSchema={colors.colorSchemas.Britecharts}
         isAnimated="true"
+        colorSchema={colors.colorSchemas.orange}
       />
     </div>
   )
@@ -19,12 +19,16 @@ export const BarChart = ({data}) => {
 export const MainStatDataParser = data => {
   return [
     {
+      value: data.firstThree.totalScore / Math.min(3, data.totalSessions),
+      name: 'When You Started'
+    },
+    {
       value: data.totalScore / data.totalSessions,
       name: 'Lifetime Average'
     },
     {
       value: data.previousThree.totalScore / Math.min(3, data.totalSessions),
-      name: 'Previous Three Climbs'
+      name: 'Your Last Three'
     }
   ]
 }

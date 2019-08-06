@@ -1288,6 +1288,9 @@ export const SampleUtility = {
     let data = {
       totalScore: 0,
       totalSessions: 0,
+      firstThree: {
+        totalScore: 0
+      },
       previousThree: {
         totalScore: 0
       }
@@ -1296,7 +1299,10 @@ export const SampleUtility = {
       let sessionScore = SampleUtility.getClimbingSessionTotalScore(climbSesh)
       climbSeshAccum.totalScore += sessionScore
       climbSeshAccum.totalSessions++
-      if (i >= userClimbs.length - 3) {
+      if (i <= 2) {
+        data.firstThree.totalScore += sessionScore
+        console.log('recorded to last three -->', sessionScore)
+      } else if (i >= userClimbs.length - 3) {
         data.previousThree.totalScore += sessionScore
         console.log('recorded to last three -->', sessionScore)
       }

@@ -16,8 +16,8 @@ export default class PersonalAnalysis extends Component {
     return (
       <div>
         <h3>Personal Analysis</h3>
-        <LineChartWithToolTip data={progressData} title="Personal Progress" />
         <BarChart data={mainStatData} />
+        <LineChartWithToolTip data={progressData} title="Personal Progress" />
       </div>
     )
   }
