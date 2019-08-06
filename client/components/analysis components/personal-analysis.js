@@ -14,8 +14,8 @@ export default class PersonalAnalysis extends Component {
     )
     const mainStatData = MainStatDataParser(getUserMainStats(this.props.userId))
     return (
-      <div>
-        <h3>Personal Analysis</h3>
+      <div className="d-flex flex-column align-items-center">
+        <h2>Personal Analysis</h2>
         <BarChart data={mainStatData} />
         <LineChartWithToolTip data={progressData} title="Personal Progress" />
       </div>

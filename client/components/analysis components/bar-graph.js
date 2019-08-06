@@ -1,14 +1,16 @@
 import React from 'react'
 import {Bar} from 'britecharts-react'
 import {colors} from 'britecharts'
+import {VisualizationWidth, VisualizationMargin} from './'
 
 export const BarChart = ({data}) => {
   return (
-    <div>
+    <div className="D3Comp">
+      <h4 className="text-center">How Far You've Come</h4> {/* temp */}
       <Bar
         data={data}
-        margin={{top: 50, bottom: 50, left: 50, right: 50}}
-        width="700"
+        margin={VisualizationMargin}
+        width={VisualizationWidth(window.innerWidth)}
         isAnimated="true"
         colorSchema={colors.colorSchemas.orange}
       />

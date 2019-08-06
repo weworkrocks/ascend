@@ -1,27 +1,30 @@
 import React from 'react'
 import {Line, Tooltip} from 'britecharts-react'
 import {colors} from 'britecharts'
+import {VisualizationWidth, VisualizationMargin} from './'
 
-export const LineChart = ({data}) => {
-  return (
-    <Line
-      data={data}
-      lineCurve="basis"
-      margin={{top: 50, bottom: 50, left: 50, right: 50}}
-      width="700"
-      shouldShowLoadingState={!data}
-      colorSchema={colors.colorSchemas.Britecharts}
-    />
-  )
-}
+// export const LineChart = ({data}) => {
+//   return (
+//     <div className="D3Comp">
+//       <Line
+//         data={data}
+//         lineCurve="basis"
+//         margin={VisualizationMargin}
+//         width={VisualizationWidth(window.innerWidth)}
+//         shouldShowLoadingState={!data}
+//         colorSchema={colors.colorSchemas.Britecharts}
+//       />
+//     </div>
+//   )
+// }
 
 const LineChartChild = props => {
   return (
     <Line
       data={props.data}
       lineCurve="basis"
-      margin={{top: 50, bottom: 50, left: 50, right: 50}}
-      width="700"
+      margin={VisualizationMargin}
+      width={VisualizationWidth(window.innerWidth)}
       shouldShowLoadingState={!props.data}
       colorSchema={colors.colorSchemas.Britecharts}
       {...props}
@@ -31,12 +34,15 @@ const LineChartChild = props => {
 
 export const LineChartWithToolTip = ({data, title}) => {
   return (
-    <Tooltip
-      data={data}
-      render={LineChartChild}
-      title={title}
-      topicLabel="topics"
-    />
+    <div className="D3Comp">
+      <h4 className="text-center">{title}</h4>
+      <Tooltip
+        data={data}
+        render={LineChartChild}
+        title={title}
+        topicLabel="topics"
+      />
+    </div>
   )
 }
 
