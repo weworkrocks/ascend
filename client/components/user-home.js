@@ -1,18 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import PersonalAnalysis from './analysis components/personal-analysis'
-import ClimbingSession from './ClimbingSession'
 import {connect} from 'react-redux'
-import {SampleUtility} from '../store/sample'
-
-const {getUserMainStats} = SampleUtility
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
   const {email, userId} = props
-  console.log('func return - - - - -> ', getUserMainStats(userId))
   return (
     <div>
       <h3>Welcome, {email}</h3>

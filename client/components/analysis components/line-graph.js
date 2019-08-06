@@ -60,6 +60,7 @@ export const PersonalProgressDataParser = climbingSessions => {
     ]
   }
 }
+
 export const FriendsProgressDataParser = (
   climbingSessions,
   users,
