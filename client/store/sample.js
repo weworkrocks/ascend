@@ -1282,22 +1282,23 @@ export const SampleUtility = {
     }, 0)
   },
 
-  getUserTotalInfo: userId => {
+  getUserMainStats: userId => {
     let userClimbs = SampleUtility.getUserClimbingHistory(userId)
-    console.log('user climb sessions -----> ', userClimbs)
-    return userClimbs.reduce(
-      (climbSeshAccum, climbSesh) => {
-        climbSeshAccum.totalScore += SampleUtility.getClimbingSessionTotalScore(
-          climbSesh
-        )
-        climbSeshAccum.totalSessions++
-        return climbSeshAccum
-      },
-      {
-        totalScore: 0,
-        totalSessions: 0
+    let data = {
+      totalScore: 0,
+      totalSessions: 0,
+      previousThree: {
+        totalScore: 0
       }
-    )
+    }
+    userClimbs.reduce((climbSeshAccum, climbSesh, i) => {
+      climbSeshAccum.totalScore += SampleUtility.getClimbingSessionTotalScore(
+        climbSesh
+      )
+      climbSeshAccum.totalSessions++
+      return climbSeshAccum
+    }, data)
+    return data
   }
 }
 

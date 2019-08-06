@@ -5,14 +5,14 @@ import ClimbingSession from './ClimbingSession'
 import {connect} from 'react-redux'
 import {SampleUtility} from '../store/sample'
 
-const {getUserTotalInfo} = SampleUtility
+const {getUserMainStats} = SampleUtility
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
   const {email, userId} = props
-  console.log('func return - - - - -> ', getUserTotalInfo(2))
+  console.log('func return - - - - -> ', getUserMainStats(2))
   return (
     <div>
       <h3>Welcome, {email}</h3>
