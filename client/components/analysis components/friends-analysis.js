@@ -28,7 +28,7 @@ class FriendsAnalysis extends Component {
       'Lester' /* Score Not Me. lol */
     ])
     return (
-      <div>
+      <div className="d-flex flex-column align-items-center">
         <h3>Friends Analysis</h3>
         <LineChartWithToolTip data={data} title="Friends Progress" />
       </div>
