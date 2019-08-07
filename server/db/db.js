@@ -1,31 +1,21 @@
-const Sequelize = require('sequelize')
-const pkg = require('../../package.json')
+const mongoose = require('mongoose')
+const config = require('config')
+const db = config.get('mongoURI')
 
-const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
+//this gives us a promise
+const connectDB = async () => {
+  try {
+    await mongoose.connect(db, {
+      useNewUrlParser: true,
+      useCreateIndex: true
+      // useFindAndModify: false
+    })
 
-// Use this for local windows. Change the username and pw to your postgres admin:
-const db = new Sequelize(
-  process.env.DATABASE_URL || `${databaseName}`,
-  'postgres',
-  'qwertyuiop',
-  {
-    logging: false,
-    dialect: 'postgres'
+    console.log('MongoDB Connected...')
+  } catch (err) {
+    //Exit process with failuar
+    process.exit(1)
   }
-)
-
-// Use this for local mac or Heroku:
-// const db = new Sequelize(
-//   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
-//   {
-//     logging: false
-//   }
-// )
-
-// This is a global Mocha hook used for resource cleanup.
-// Otherwise, Mocha v4+ does not exit after tests.
-if (process.env.NODE_ENV === 'test') {
-  after('close database connection', () => db.close())
 }
 
-module.exports = db
+module.exports = connectDB
