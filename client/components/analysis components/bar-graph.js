@@ -23,7 +23,10 @@ export const MainStatBarChart = ({data}) => {
         isAnimated="true"
         colorSchema={colors.colorSchemas.orange}
       />
-      <table className="table table-bordered text-center">
+      <table
+        className="table table-bordered text-center ml-3"
+        style={{width: VisualizationWidth(window.innerWidth) - 30}}
+      >
         <thead>
           <tr className="table-success h3" style={{color: 'DarkGreen'}}>
             <th scope="col">

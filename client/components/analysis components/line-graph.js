@@ -70,15 +70,15 @@ export const PersonalProgressDataParser = climbingSessions => {
 export const FriendsProgressDataParser = (
   climbingSessions,
   users,
-  ignoreList = []
+  selectedClimbers = []
 ) => {
   const data = {dataByTopic: []}
   climbingSessions
     .filter(
       session =>
-        ignoreList.indexOf(
+        selectedClimbers.indexOf(
           users.find(user => user.id === session.userId).email
-        ) === -1
+        ) > -1
     )
     .map(session => {
       const climber = users.find(user => user.id === session.userId)

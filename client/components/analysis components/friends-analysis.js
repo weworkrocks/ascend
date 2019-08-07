@@ -10,12 +10,23 @@ import {SampleUtility} from '../../store/sample'
 const {getAllClimbingHistory} = SampleUtility
 
 class FriendsAnalysis extends Component {
+  constructor() {
+    super()
+    this.state = {
+      selectedUsers: []
+    }
+  }
   async componentDidMount() {
     await this.props.fetchAllUsers()
+    this.setState({
+      selectedUsers: [this.props.currentUser]
+    })
   }
 
   render() {
-    if (this.props.users.length === 0) return <div>Loading</div>
+    const {selectedUsers} = this.state
+    if (this.props.users.length === 0 || selectedUsers.length === 0)
+      return <div>Loading</div>
     const users = this.props.users.map(user => {
       const {id, email} = user
       return {
@@ -24,9 +35,11 @@ class FriendsAnalysis extends Component {
         key: null
       }
     })
-    const data = FriendsProgressDataParser(getAllClimbingHistory(), users, [
-      'Lester' /* Score Not Me. lol */
-    ])
+    const data = FriendsProgressDataParser(
+      getAllClimbingHistory(),
+      users,
+      selectedUsers
+    )
     return (
       <div className="d-flex flex-column align-items-center">
         <h3>Friends Analysis</h3>
@@ -37,7 +50,8 @@ class FriendsAnalysis extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.allUsers
+  users: state.allUsers,
+  currentUser: state.user.email
 })
 
 const mapDispatchToProps = dispatch => ({

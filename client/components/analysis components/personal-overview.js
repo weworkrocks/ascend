@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 
 export default class PersonalOverview extends Component {
-  constructor(props) {
-    super(props)
-  }
+  //   constructor(props) {
+  //     super(props)
+  //   }
   render() {
-    const {mainStats} = this.props
+    // const {mainStats} = this.props
     return (
       <div>
         {/* <table>
