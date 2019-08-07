@@ -1,27 +1,33 @@
 const express = require('express')
 const router = express.Router()
-const {check, validationResult} = require('express-validator')
-const gravatar = require('gravatar')
+const auth = require('../../middleware/auth')
 const bcrypt = require('bcryptjs')
+const User = require('../../models/User')
+const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 
-const User = require('../../models/User')
+//@route GET    api/auth
+//@desc Test    route
+//@access       Public
+router.get('/', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password')
+    res.json(user)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
 
 //@route        POST api/users
-//@desc         register User
+//@desc         Authentcate user & get token
 //@access       Public
 router.post(
   '/',
   [
-    check('name', 'Name is Required')
-      .not()
-      .isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
-    check(
-      'password',
-      'Please enter a Password with 6 or more characters'
-    ).isLength({min: 6})
+    check('password', 'Password is required').exists()
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -30,36 +36,21 @@ router.post(
     }
 
     //Registering the user
-    const {name, email, password} = req.body
+    const {email, password} = req.body
 
     try {
       //See if user exists
 
       let user = await User.findOne({email})
-      if (user) {
-        return res.status(400).json({errors: [{msg: 'User already exists'}]})
+      if (!user) {
+        return res.status(400).json({errors: [{msg: 'Invalid Creds'}]})
       }
 
-      //Get users gravatar
+      const isMatch = await bcrypt.compare(password, user.password)
 
-      const avatar = gravatar.url(email, {
-        s: '200',
-        r: 'pg',
-        d: 'mm'
-      })
-
-      user = new User({
-        name,
-        email,
-        avatar,
-        password
-      })
-
-      //Encrypt Password
-      const salt = await bcrypt.genSalt(10)
-      user.password = await bcrypt.hash(password, salt)
-
-      await user.save()
+      if (!isMatch) {
+        return res.status(400).json({errors: [{msg: 'Invalid Creds'}]})
+      }
 
       //Return jsonwebtoken
 
