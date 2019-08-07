@@ -14,6 +14,12 @@ export const BarChart = ({data}) => {
         isAnimated="true"
         colorSchema={colors.colorSchemas.orange}
       />
+      <table>
+        <tr>
+          <td>Hello</td>
+          <td>I'm a Table</td>
+        </tr>
+      </table>
     </div>
   )
 }
@@ -21,15 +27,15 @@ export const BarChart = ({data}) => {
 export const MainStatDataParser = data => {
   return [
     {
-      value: data.firstThree.totalScore / Math.min(3, data.totalSessions),
+      value: data.firstThree.averageScore,
       name: 'When You Started'
     },
     {
-      value: data.totalScore / data.totalSessions,
+      value: data.averageScore,
       name: 'Lifetime Average'
     },
     {
-      value: data.previousThree.totalScore / Math.min(3, data.totalSessions),
+      value: data.previousThree.averageScore,
       name: 'Your Last Three'
     }
   ]

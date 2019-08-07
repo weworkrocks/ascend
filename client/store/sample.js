@@ -1305,6 +1305,11 @@ export const SampleUtility = {
       }
       return climbSeshAccum
     }, data)
+    data.averageScore = data.totalScore / data.totalSessions
+    data.firstThree.averageScore =
+      data.firstThree.totalScore / Math.min(3, data.totalSessions)
+    data.previousThree.averageScore =
+      data.previousThree.totalScore / Math.min(3, data.totalSessions)
     return data
   }
 }
