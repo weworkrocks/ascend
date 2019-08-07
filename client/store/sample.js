@@ -2,15 +2,28 @@ export const Sample = {
   locations: [
     {
       id: 1,
-      name: 'LIC Cliffs'
+      name: 'LIC Cliffs',
+      address: '11-11 44th Dr., Long Island City, NY 11101'
     },
     {
       id: 2,
-      name: 'Brooklyn Boulders Gowanus'
+      name: 'Brooklyn Boulders Gowanus',
+      address: '575 Degraw St., Brooklyn, NY 11217'
     },
     {
       id: 3,
-      name: 'MPHC Climbing Gym'
+      name: 'Brooklyn Boulders Queensbridge',
+      address: '23-10 41st Ave., Long Island City, NY 11101'
+    },
+    {
+      id: 4,
+      name: 'Dumbo Bouldering',
+      address: '99 Plymouth St., Brooklyn, NY 11201'
+    },
+    {
+      id: 5,
+      name: 'MPHC Climbing Gym',
+      address: '482 W 43rd St., New York, NY 10036'
     }
   ],
   climbingSessions: [
@@ -1260,6 +1273,44 @@ export const SampleUtility = {
     return Sample.climbingSessions.filter(
       climbSesh => climbSesh.userId === userId
     )
+  },
+
+  getClimbingSessionTotalScore: climbingSession => {
+    return climbingSession.climbs.reduce((accum, climb) => {
+      accum += climb.score
+      return accum
+    }, 0)
+  },
+
+  getUserMainStats: userId => {
+    let userClimbs = SampleUtility.getUserClimbingHistory(userId)
+    let data = {
+      totalScore: 0,
+      totalSessions: 0,
+      firstThree: {
+        totalScore: 0
+      },
+      previousThree: {
+        totalScore: 0
+      }
+    }
+    userClimbs.reduce((climbSeshAccum, climbSesh, i) => {
+      let sessionScore = SampleUtility.getClimbingSessionTotalScore(climbSesh)
+      climbSeshAccum.totalScore += sessionScore
+      climbSeshAccum.totalSessions++
+      if (i <= 2) {
+        data.firstThree.totalScore += sessionScore
+      } else if (i >= userClimbs.length - 3) {
+        data.previousThree.totalScore += sessionScore
+      }
+      return climbSeshAccum
+    }, data)
+    data.averageScore = data.totalScore / data.totalSessions
+    data.firstThree.averageScore =
+      data.firstThree.totalScore / Math.min(3, data.totalSessions)
+    data.previousThree.averageScore =
+      data.previousThree.totalScore / Math.min(3, data.totalSessions)
+    return data
   }
 }
 

@@ -7,6 +7,8 @@ import {connect} from 'react-redux'
 import {getAllUsersThunk} from '../../store'
 import {SampleUtility} from '../../store/sample'
 
+const {getAllClimbingHistory} = SampleUtility
+
 class FriendsAnalysis extends Component {
   async componentDidMount() {
     await this.props.fetchAllUsers()
@@ -22,11 +24,9 @@ class FriendsAnalysis extends Component {
         key: null
       }
     })
-    const data = FriendsProgressDataParser(
-      SampleUtility.getAllClimbingHistory(),
-      users,
-      ['Lester' /* Score Not Me. lol */]
-    )
+    const data = FriendsProgressDataParser(getAllClimbingHistory(), users, [
+      'Lester' /* Score Not Me. lol */
+    ])
     return (
       <div>
         <h3>Friends Analysis</h3>
