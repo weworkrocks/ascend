@@ -1,7 +1,11 @@
 import React from 'react'
 import {Line, Tooltip} from 'britecharts-react'
 import {colors} from 'britecharts'
-import {VisualizationWidth, VisualizationMargin} from './'
+import {
+  VisualizationWidth,
+  VisualizationMargin,
+  EarthTonesColorPalette
+} from './'
 
 // export const LineChart = ({data}) => {
 //   return (
@@ -26,7 +30,7 @@ const LineChartChild = props => {
       margin={VisualizationMargin}
       width={VisualizationWidth(window.innerWidth)}
       shouldShowLoadingState={!props.data}
-      colorSchema={colors.colorSchemas.Britecharts}
+      colorSchema={EarthTonesColorPalette}
       {...props}
     />
   )
