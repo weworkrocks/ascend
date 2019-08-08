@@ -30,7 +30,11 @@ const LineChartChild = props => {
       margin={VisualizationMargin}
       width={VisualizationWidth(window.innerWidth)}
       shouldShowLoadingState={!props.data}
-      colorSchema={EarthTonesColorPalette}
+      // colorSchema={
+      //   props.data.length === 1 ?
+      //     colors.colorSchemas.Britecharts :
+      //     EarthTonesColorPalette
+      // }
       {...props}
     />
   )
@@ -71,19 +75,15 @@ export const PersonalProgressDataParser = climbingSessions => {
   }
 }
 
-export const FriendsProgressDataParser = (
-  climbingSessions,
-  users,
-  selectedClimbers = []
-) => {
+export const FriendsProgressDataParser = (climbingSessions, users) => {
   const data = {dataByTopic: []}
   climbingSessions
-    .filter(
-      session =>
-        selectedClimbers.indexOf(
-          users.find(user => user.id === session.userId).email
-        ) > -1
-    )
+    // .filter(
+    //   session =>
+    //     selectedClimbers.indexOf(
+    //       users.find(user => user.id === session.userId).email
+    //     ) > -1
+    // )
     .map(session => {
       const climber = users.find(user => user.id === session.userId)
       const score = session.climbs.reduce((accum, climb) => {

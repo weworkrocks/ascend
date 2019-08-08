@@ -56,14 +56,6 @@ class FriendsAnalysis extends Component {
     console.log('Post-removal ----->', currentSelectedUsers)
   }
 
-  renderFriendsButton = username => {
-    return (
-      <Button className="initiate-test-button" variant="success">
-        {username}
-      </Button>
-    )
-  }
-
   render = () => {
     const {selectedUsers, allUsers} = this.state
     if (this.props.users.length === 0 || selectedUsers.length === 0)
