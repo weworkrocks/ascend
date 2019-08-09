@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {
-  LineChart,
   LoadingChart,
   LineChartWithToolTip,
   FriendsProgressDataParser

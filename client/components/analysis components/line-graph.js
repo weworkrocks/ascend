@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Line, Tooltip} from 'britecharts-react'
+import {Line, Tooltip, Legend} from 'britecharts-react'
 import {colors} from 'britecharts'
 import {
   VisualizationWidth,
@@ -16,9 +16,14 @@ export const LoadingChart = () => {
         margin={VisualizationMargin}
         width={VisualizationWidth(window.innerWidth)}
         shouldShowLoadingState={true}
-        // colorSchema={colors.colorSchemas.Britecharts}
       />
     </div>
+  )
+}
+
+const LineGraphLegend = data => {
+  return (
+    <Legend data={data} height="200" width="200" margin={VisualizationMargin} />
   )
 }
 
@@ -39,19 +44,18 @@ export const LineChart = ({data}) => {
 
 const LineChartChild = props => {
   return (
-    <Line
-      data={props.data}
-      lineCurve="basis"
-      margin={VisualizationMargin}
-      width={VisualizationWidth(window.innerWidth)}
-      shouldShowLoadingState={!props.data}
-      // colorSchema={
-      //   props.data.length === 1 ?
-      //     colors.colorSchemas.Britecharts :
-      //     EarthTonesColorPalette
-      // }
-      {...props}
-    />
+    <div>
+      <Line
+        data={props.data}
+        lineCurve="basis"
+        margin={VisualizationMargin}
+        width={VisualizationWidth(window.innerWidth)}
+        shouldShowLoadingState={!props.data}
+        {...props}
+      />
+      {/* {LineGraphLegend(props.data)} */}
+      {/* We need to reorganize the data to fit into the legend */}
+    </div>
   )
 }
 
@@ -61,12 +65,6 @@ export class LineChartWithToolTip extends Component {
     this.state = {
       data,
       title
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.data !== this.state.data) {
-      // do stuff
-      console.log('rerender')
     }
   }
   render() {
