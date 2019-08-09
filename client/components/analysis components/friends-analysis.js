@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {
+  LineChart,
+  LoadingChart,
   LineChartWithToolTip,
   FriendsProgressDataParser
 } from '../analysis components/line-graph'
@@ -14,57 +16,72 @@ class FriendsAnalysis extends Component {
   constructor() {
     super()
     this.state = {
-      selectedUsers: [],
-      allUsers: []
+      allUsers: [],
+      selectedCount: 1,
+      renderChart: true
     }
   }
   async componentDidMount() {
     await this.props.fetchAllUsers()
-    const {currentUser, users} = this.props
-    this.setState({
-      selectedUsers: [currentUser],
+    const {users} = this.props
+    await this.setState({
       allUsers: users.map(user => {
         const {id, email} = user
         return {
           id,
           email,
-          key: null,
-          activated: email === currentUser
+          activated: true
         }
-      })
+      }),
+      selectedCount: users.length
     })
   }
 
-  selectUser = username => {
-    let currentSelectedUsers = this.state.selectedUsers
-    if (currentSelectedUsers.length === 10) {
-      return 'Graph is full'
-    } else if (!currentSelectedUsers.indexOf(username)) {
-      return 'User already exists'
-    } else {
-      currentSelectedUsers.push(username)
-      this.setState(currentSelectedUsers)
-      return 'Success'
-    }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.selectedCount !== this.state.selectedCount) {
+  //     // do stuff
+  //     console.log("rerender")
+  //   }
+  // }
+
+  renderFriendsGraph = data => {
+    return <LineChartWithToolTip data={data} title="Friends Progress" />
   }
 
-  deselectUser = username => {
-    let currentSelectedUsers = this.state.selectedUsers
-    let userPosition = currentSelectedUsers.indexOf(username)
-    console.log('Pre-removal ----->', currentSelectedUsers)
-    currentSelectedUsers.splice(userPosition, 1)
-    console.log('Post-removal ----->', currentSelectedUsers)
+  toggleUser = async username => {
+    let newState = {...this.state}
+    newState.renderChart = false
+    await this.setState(newState)
+
+    newState.allUsers = newState.allUsers.map(user => {
+      if (user.email === username) {
+        if (user.activated) {
+          if (newState.selectedCount === 1) {
+            console.log('Must have at least one climber')
+          } else {
+            user.activated = false
+            newState.selectedCount--
+          }
+          return user
+        } else if (newState.selectedCount === 7) {
+          console.log('Chart is full')
+          return user
+        } else {
+          user.activated = true
+          newState.selectedCount++
+          return user
+        }
+      } else return user
+    })
+    newState.renderChart = true
+    this.setState(newState)
   }
 
-  render = () => {
-    const {selectedUsers, allUsers} = this.state
-    if (this.props.users.length === 0 || selectedUsers.length === 0)
+  render() {
+    const {allUsers, renderChart} = this.state
+    if (this.props.users.length === 0 || allUsers.length === 0)
       return <div>Loading</div>
-    const data = FriendsProgressDataParser(
-      getAllClimbingHistory(),
-      allUsers,
-      selectedUsers
-    )
+    const data = FriendsProgressDataParser(getAllClimbingHistory(), allUsers)
     return (
       <div className="d-flex flex-column align-items-center">
         <h3>Friends Analysis</h3>
@@ -76,13 +93,18 @@ class FriendsAnalysis extends Component {
                 className="mx-2 my-2"
                 variant={user.activated ? 'success' : 'primary'}
                 key={email}
+                onClick={() => this.toggleUser(email)}
               >
                 {email}
               </Button>
             )
           })}
         </ButtonToolbar>
-        <LineChartWithToolTip data={data} title="Friends Progress" />
+        {renderChart ? (
+          <LineChartWithToolTip data={data} title="Friends Progress" />
+        ) : (
+          <LoadingChart />
+        )}
       </div>
     )
   }
