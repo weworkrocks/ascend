@@ -109,9 +109,6 @@ export const PersonalProgressDataParser = climbingSessions => {
 export const FriendsProgressDataParser = (climbingSessions, users) => {
   const data = {dataByTopic: []}
   let selectedClimbers = users.filter(user => user.activated)
-  console.log(selectedClimbers)
-
-  // fill dataByTopic with users
 
   data.dataByTopic = selectedClimbers.map((user, i) => {
     selectedClimbers[i].key = i
@@ -135,8 +132,6 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
         date: session.date,
         value: score
       })
-      // }
     })
-  console.log('data final =====>', data)
   return data
 }

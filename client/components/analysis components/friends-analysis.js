@@ -30,19 +30,12 @@ class FriendsAnalysis extends Component {
         return {
           id,
           email,
-          activated: true
+          activated: email === this.props.currentUser
         }
       }),
-      selectedCount: users.length
+      selectedCount: 1
     })
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.selectedCount !== this.state.selectedCount) {
-  //     // do stuff
-  //     console.log("rerender")
-  //   }
-  // }
 
   renderFriendsGraph = data => {
     return <LineChartWithToolTip data={data} title="Friends Progress" />
@@ -63,7 +56,7 @@ class FriendsAnalysis extends Component {
             newState.selectedCount--
           }
           return user
-        } else if (newState.selectedCount === 7) {
+        } else if (newState.selectedCount === 5) {
           console.log('Chart is full')
           return user
         } else {
