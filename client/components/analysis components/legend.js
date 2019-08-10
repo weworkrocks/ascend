@@ -14,13 +14,3 @@ export class LegendComponent extends Component {
     )
   }
 }
-
-// export const LineGraphToLegendDataParser = climbingSessions => {
-//     let data = climbingSessions.reduce((accum, session) => {
-//         if(accum) {
-
-//         }
-//         return accum
-//     },{})
-//     return data
-// }
