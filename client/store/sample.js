@@ -1,3 +1,14 @@
+const MAIN_STAT_INIT = {
+  totalScore: 0,
+  totalSessions: 0,
+  firstThree: {
+    totalScore: 0
+  },
+  previousThree: {
+    totalScore: 0
+  }
+}
+
 export const Sample = {
   locations: [
     {
@@ -1284,16 +1295,7 @@ export const SampleUtility = {
 
   getUserMainStats: userId => {
     let userClimbs = SampleUtility.getUserClimbingHistory(userId)
-    let data = {
-      totalScore: 0,
-      totalSessions: 0,
-      firstThree: {
-        totalScore: 0
-      },
-      previousThree: {
-        totalScore: 0
-      }
-    }
+    let data = MAIN_STAT_INIT
     userClimbs.reduce((climbSeshAccum, climbSesh, i) => {
       let sessionScore = SampleUtility.getClimbingSessionTotalScore(climbSesh)
       climbSeshAccum.totalScore += sessionScore

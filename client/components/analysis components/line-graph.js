@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {Line, Tooltip, Legend} from 'britecharts-react'
+import {Line, Tooltip} from 'britecharts-react'
 import {colors} from 'britecharts'
+import {LegendComponent} from './legend'
 import {
   VisualizationWidth,
   VisualizationMargin,
@@ -18,12 +19,6 @@ export const LoadingChart = () => {
         shouldShowLoadingState={true}
       />
     </div>
-  )
-}
-
-const LineGraphLegend = data => {
-  return (
-    <Legend data={data} height="200" width="200" margin={VisualizationMargin} />
   )
 }
 
@@ -55,6 +50,9 @@ const LineChartChild = props => {
       />
       {/* {LineGraphLegend(props.data)} */}
       {/* We need to reorganize the data to fit into the legend */}
+      {props.data.dataByTopic.length > 1 ? (
+        <LegendComponent data={props.data} />
+      ) : null}
     </div>
   )
 }
@@ -100,12 +98,13 @@ export const PersonalProgressDataParser = climbingSessions => {
           }
         })
       }
-    ]
+    ],
+    legendData: {}
   }
 }
 
 export const FriendsProgressDataParser = (climbingSessions, users) => {
-  const data = {dataByTopic: []}
+  const data = {dataByTopic: [], legendData: {}}
   let selectedClimbers = users.filter(user => user.activated)
 
   data.dataByTopic = selectedClimbers.map((user, i) => {
@@ -114,6 +113,13 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
       topicName: user.email,
       topic: user.email,
       dates: []
+    }
+  })
+
+  data.legendData = selectedClimbers.map(user => {
+    return {
+      name: user.email,
+      value: 0
     }
   })
 
@@ -130,6 +136,8 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
         date: session.date,
         value: score
       })
+      data.legendData[climber.key].value += score
     })
+  console.log(data)
   return data
 }

@@ -36,10 +36,6 @@ class FriendsAnalysis extends Component {
     })
   }
 
-  renderFriendsGraph = data => {
-    return <LineChartWithToolTip data={data} title="Friends Progress" />
-  }
-
   toggleUser = async username => {
     let newState = {...this.state}
     newState.renderChart = false
