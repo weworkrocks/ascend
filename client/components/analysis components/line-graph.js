@@ -51,7 +51,7 @@ const LineChartChild = props => {
       {/* {LineGraphLegend(props.data)} */}
       {/* We need to reorganize the data to fit into the legend */}
       {props.data.dataByTopic.length > 1 ? (
-        <LegendComponent data={props.data} />
+        <LegendComponent data={props.data.legendData} />
       ) : null}
     </div>
   )
@@ -118,8 +118,9 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
 
   data.legendData = selectedClimbers.map(user => {
     return {
+      // where to put stuff
       name: user.email,
-      value: 0
+      quantity: 0
     }
   })
 
@@ -136,7 +137,7 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
         date: session.date,
         value: score
       })
-      data.legendData[climber.key].value += score
+      data.legendData[climber.key].quantity += score
     })
   console.log(data)
   return data

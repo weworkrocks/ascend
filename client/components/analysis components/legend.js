@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Legend} from 'britecharts-react'
 import {
   VisualizationWidth,
@@ -6,10 +6,13 @@ import {
   EarthTonesColorPalette
 } from './'
 
-export const LegendComponent = data => {
-  return (
-    <Legend data={data} height="200" width="200" margin={VisualizationMargin} />
-  )
+export class LegendComponent extends Component {
+  render() {
+    const {data} = this.props
+    return (
+      <Legend data={data} numberFormat="," height={data.length * 25 + 25} />
+    )
+  }
 }
 
 // export const LineGraphToLegendDataParser = climbingSessions => {
