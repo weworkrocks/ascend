@@ -1,11 +1,18 @@
 import React, {Component} from 'react'
-import {SampleUtility} from '../store/sample'
-
-const {getUserMainStats} = SampleUtility
 
 export default class ClimbingSession extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      highlighted: false
+    }
+  }
   render() {
-    console.log('func return - - - - -> ', getUserMainStats(1))
-    return <div>HELLO REACT</div>
+    const {sessionNumber, climbs, location} = this.props
+    return (
+      <div>
+        <h5>Climb Session {sessionNumber}</h5>
+      </div>
+    )
   }
 }
