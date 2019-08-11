@@ -83,17 +83,19 @@ class FriendsAnalysis extends Component {
         <ButtonToolbar className="d-flex justify-content-around">
           {allUsers.map(user => {
             const {email} = user
+            const color = user.activated ? ColorSchemeIterator() : null
             return (
               <Button
                 className="mx-2 my-2"
-                // variant={user.activated ? 'success' : 'primary'}
                 variant="secondary"
                 key={email}
                 onClick={() => this.toggleUser(email)}
                 style={
                   user.activated
                     ? {
-                        background: ColorSchemeIterator()
+                        background: color,
+                        border: `3px inset ${color}`,
+                        'font-weight': 'bold'
                       }
                     : null
                 }
