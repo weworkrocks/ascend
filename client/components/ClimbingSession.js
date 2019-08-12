@@ -27,9 +27,9 @@ export default class ClimbingSession extends Component {
     }
     const {styling} = this.state
     const climbs = [
-      {difficulty: '5^5', score: 10},
-      {difficulty: '5^6', score: 13},
-      {difficulty: '5^7', score: 16}
+      {difficulty: '5^5', score: 10, id: 1},
+      {difficulty: '5^6', score: 13, id: 2},
+      {difficulty: '5^7', score: 16, id: 3}
     ]
 
     return (
@@ -47,10 +47,14 @@ export default class ClimbingSession extends Component {
           </div>
           <div>Location: {location.name}</div>
         </div>
-        <div className="card-climbing-wrapper">
+        <div className="card-climbing-display-container">
           <div>Climbs:</div>
           <div className="d-flex">
-            {climbs.map((climb, i) => <div key={`${climb}${i}`} />)}
+            {climbs.map(climb => (
+              <div key={`climb${climb.id}`} className="card-climbing-container">
+                <div>Grade: {climb.difficulty}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
