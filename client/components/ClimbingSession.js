@@ -22,20 +22,37 @@ export default class ClimbingSession extends Component {
     // Test
     const sessionNumber = 2
     const location = {
-      name: 'LIC Cliffs'
+      name: 'LIC Cliffs',
+      imageUrl: '/images/locations/LIC_Cliffs.jpg'
     }
     const {styling} = this.state
+    const climbs = [
+      {difficulty: '5^5', score: 10},
+      {difficulty: '5^6', score: 13},
+      {difficulty: '5^7', score: 16}
+    ]
 
     return (
-      <div className="card mb-4" style={styling}>
-        <h6 className="card-title text-center mb-1">
+      <div className="card mb-4 d-flex" style={styling}>
+        <h4 className="card-title text-center mb-1">
           Climb Session {sessionNumber}
-        </h6>
-        <div>Location: {location.name}</div>
-        <div>Climbs:</div>
-        <p>5-5</p>
-        <p>5-6</p>
-        <p>5-7</p>
+        </h4>
+        <div className="card-overview d-flex d-column">
+          <div className="card-img-wrapper">
+            <img
+              className="card-img-top"
+              src={location.imageUrl}
+              alt={location.name}
+            />
+          </div>
+          <div>Location: {location.name}</div>
+        </div>
+        <div className="card-climbing-wrapper">
+          <div>Climbs:</div>
+          <div className="d-flex">
+            {climbs.map((climb, i) => <div key={`${climb}${i}`} />)}
+          </div>
+        </div>
       </div>
     )
   }
