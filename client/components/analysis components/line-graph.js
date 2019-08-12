@@ -48,8 +48,6 @@ const LineChartChild = props => {
         shouldShowLoadingState={!props.data}
         {...props}
       />
-      {/* {LineGraphLegend(props.data)} */}
-      {/* We need to reorganize the data to fit into the legend */}
       {props.data.dataByTopic.length > 1 ? (
         <LegendComponent data={props.data.legendData} />
       ) : null}

@@ -1,10 +1,5 @@
 import React, {Component} from 'react'
 import {Legend} from 'britecharts-react'
-import {
-  VisualizationWidth,
-  VisualizationMargin,
-  EarthTonesColorPalette
-} from './'
 
 export class LegendComponent extends Component {
   render() {
