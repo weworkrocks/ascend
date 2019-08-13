@@ -116,7 +116,6 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
 
   data.legendData = selectedClimbers.map(user => {
     return {
-      // where to put stuff
       name: user.email,
       quantity: 0
     }
@@ -137,6 +136,5 @@ export const FriendsProgressDataParser = (climbingSessions, users) => {
       })
       data.legendData[climber.key].quantity += score
     })
-  console.log(data)
   return data
 }
