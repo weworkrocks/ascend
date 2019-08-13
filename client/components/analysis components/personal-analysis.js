@@ -36,7 +36,7 @@ export default class PersonalAnalysis extends Component {
         <MainStatBarChart data={mainStatData} />
         <PersonalOverview mainStat={mainStatUnparsed} />
         <LineChartWithToolTip data={progressData} title="Personal Progress" />
-        {this.renderClimbingSessions(climbingHistoryWithTop3)}
+        {/* {this.renderClimbingSessions(climbingHistoryWithTop3)} */}
       </div>
     )
   }
