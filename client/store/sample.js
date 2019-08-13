@@ -1275,6 +1275,11 @@ export const SampleUtility = {
     )
   },
 
+  getClimbingSessionTopThree: climbSesh => {
+    const numberOfClimbs = climbSesh.climbs.length
+    return climbSesh.climbs.slice(Math.max(numberOfClimbs - 3, 0))
+  },
+
   getClimbingSessionTotalScore: climbingSession => {
     return climbingSession.climbs.reduce((accum, climb) => {
       accum += climb.score
