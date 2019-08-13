@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {colors} from 'britecharts'
 import {
   LoadingChart,
   LineChartWithToolTip,
@@ -36,10 +37,6 @@ class FriendsAnalysis extends Component {
     })
   }
 
-  renderFriendsGraph = data => {
-    return <LineChartWithToolTip data={data} title="Friends Progress" />
-  }
-
   toggleUser = async username => {
     let newState = {...this.state}
     newState.renderChart = false
@@ -70,6 +67,12 @@ class FriendsAnalysis extends Component {
   }
 
   render() {
+    const colorScheme = colors.colorSchemas.britecharts
+    let activatedIteration = -1
+    const ColorSchemeIterator = () => {
+      activatedIteration++
+      return colorScheme[activatedIteration]
+    }
     const {allUsers, renderChart} = this.state
     if (this.props.users.length === 0 || allUsers.length === 0)
       return <div>Loading</div>
@@ -80,12 +83,22 @@ class FriendsAnalysis extends Component {
         <ButtonToolbar className="d-flex justify-content-around">
           {allUsers.map(user => {
             const {email} = user
+            const color = user.activated ? ColorSchemeIterator() : null
             return (
               <Button
                 className="mx-2 my-2"
-                variant={user.activated ? 'success' : 'primary'}
+                variant="secondary"
                 key={email}
                 onClick={() => this.toggleUser(email)}
+                style={
+                  user.activated
+                    ? {
+                        background: color,
+                        border: `3px inset ${color}`,
+                        'font-weight': 'bold'
+                      }
+                    : null
+                }
               >
                 {email}
               </Button>
