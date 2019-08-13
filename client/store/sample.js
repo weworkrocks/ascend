@@ -1269,15 +1269,15 @@ export const SampleUtility = {
     return Sample.climbingSessions.map(climbSesh => climbSesh)
   },
 
+  getClimbingSessionTopThree: climbSesh => {
+    const numberOfClimbs = climbSesh.climbs.length
+    return climbSesh.climbs.slice(Math.max(numberOfClimbs - 3, 0))
+  },
+
   getUserClimbingHistory: userId => {
     return Sample.climbingSessions.filter(
       climbSesh => climbSesh.userId === userId
     )
-  },
-
-  getClimbingSessionTopThree: climbSesh => {
-    const numberOfClimbs = climbSesh.climbs.length
-    return climbSesh.climbs.slice(Math.max(numberOfClimbs - 3, 0))
   },
 
   getClimbingSessionTotalScore: climbingSession => {

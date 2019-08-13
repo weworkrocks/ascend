@@ -13,7 +13,11 @@ import {SampleUtility} from '../../store/sample'
 const {getUserClimbingHistory, getUserMainStats} = SampleUtility
 
 export default class PersonalAnalysis extends Component {
-  renderClimbingSession = session => {}
+  renderClimbingSessions = sessions => {
+    return sessions.map(session => (
+      <ClimbingSession session={session} key={session.id} />
+    ))
+  }
   render() {
     const climbingHistoryUnparsed = getUserClimbingHistory(this.props.userId)
     const progressData = PersonalProgressDataParser(climbingHistoryUnparsed)
@@ -25,7 +29,7 @@ export default class PersonalAnalysis extends Component {
         <MainStatBarChart data={mainStatData} />
         <PersonalOverview mainStat={mainStatUnparsed} />
         <LineChartWithToolTip data={progressData} title="Personal Progress" />
-        {/* <ClimbingSession /> */}
+        {this.renderClimbingSessions(climbingHistoryUnparsed)}
       </div>
     )
   }
