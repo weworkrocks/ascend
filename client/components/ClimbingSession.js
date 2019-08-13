@@ -18,19 +18,11 @@ export default class ClimbingSession extends Component {
   }
   render() {
     const {session} = this.props
-
-    // Test
-    // const sessionNumber = 2
     const location = {
       name: 'LIC Cliffs',
       imageUrl: '/images/locations/LIC_Cliffs.jpg'
     }
     const {styling} = this.state
-    // const climbs = [
-    //   {difficulty: '5^5', score: 10, id: 1},
-    //   {difficulty: '5^6', score: 13, id: 2},
-    //   {difficulty: '5^7', score: 16, id: 3}
-    // ]
 
     return (
       <div className="card mb-4 d-flex" style={styling}>

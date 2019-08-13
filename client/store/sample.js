@@ -1280,6 +1280,14 @@ export const SampleUtility = {
     )
   },
 
+  getUserClimbingHistoryTopThreeClimbs: userId => {
+    const sessions = SampleUtility.getUserClimbingHistory(userId)
+    return sessions.map(session => {
+      session.climbs = SampleUtility.getClimbingSessionTopThree(session)
+      return session
+    })
+  },
+
   getClimbingSessionTotalScore: climbingSession => {
     return climbingSession.climbs.reduce((accum, climb) => {
       accum += climb.score
