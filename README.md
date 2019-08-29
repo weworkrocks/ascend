@@ -24,4 +24,6 @@ Feel free to log in as any of these users:
 * Angel
 * Oz
 
+Note: Username is case-sensitive
+
 password: 123
