@@ -78,7 +78,7 @@ class FriendsAnalysis extends Component {
       return <div>Loading</div>
     const data = FriendsProgressDataParser(getAllClimbingHistory(), allUsers)
     return (
-      <div className="d-flex flex-column align-items-center">
+      <div className="d-flex flex-column align-items-center mb-4">
         <h3>Friends Analysis</h3>
         <ButtonToolbar className="d-flex justify-content-around">
           {allUsers.map(user => {

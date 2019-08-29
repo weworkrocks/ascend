@@ -31,7 +31,7 @@ export default class PersonalAnalysis extends Component {
     const mainStatUnparsed = getUserMainStats(this.props.userId)
     const mainStatData = MainStatDataParser(mainStatUnparsed)
     return (
-      <div className="d-flex flex-column align-items-center">
+      <div className="d-flex flex-column align-items-center mb-4">
         <h2>Personal Analysis</h2>
         <MainStatBarChart data={mainStatData} />
         <PersonalOverview mainStat={mainStatUnparsed} />
